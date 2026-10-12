@@ -2,64 +2,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Order Status Handler</title>
+    <title>Order Status</title>
 </head>
 <body>
 
-    <h1>Order Status Handler</h1>
+<h2>Order Status Handler</h2>
 
-    <form method="post">
+<form method="post">
+    Enter Order Number:
+    <input type="text" name="order" required>
+    <button type="submit" name="check">Check Status</button>
+</form>
 
-        <label>Enter Order Status:</label>
+<?php
+if (isset($_POST["check"])) {
 
-        <select name="status" required>
-            <option value="">-- Select Status --</option>
-            <option value="pending">Pending</option>
-            <option value="processing">Processing</option>
-            <option value="shipped">Shipped</option>
-            <option value="delivered">Delivered</option>
-            <option value="cancelled">Cancelled</option>
-        </select>
+    $order = $_POST["order"];
 
-        <br><br>
+    switch ($order) {
+        case "101":
+            echo "Order is Pending";
+            break;
 
-        <button type="submit" name="check">
-            Check Order Status
-        </button>
+        case "102":
+            echo "Order is Processing";
+            break;
 
-    </form>
+        case "103":
+            echo "Order is Shipped";
+            break;
 
-    <?php if (isset($_POST['check'])) {
-      $status = $_POST['status'];
+        case "104":
+            echo "Order is Delivered";
+            break;
 
-      echo '<h2>Order Status Result</h2>';
-
-      switch ($status) {
-        case 'pending':
-          echo 'Your order is waiting to be processed.';
-          break;
-
-        case 'processing':
-          echo 'Your order is being prepared.';
-          break;
-
-        case 'shipped':
-          echo 'Your order has been shipped.';
-          break;
-
-        case 'delivered':
-          echo 'Your order has been delivered successfully.';
-          break;
-
-        case 'cancelled':
-          echo 'Your order has been cancelled.';
-          break;
+        case "105":
+            echo "Order is Cancelled";
+            break;
 
         default:
-          echo 'Invalid order status.';
-          break;
-      }
-    } ?>
+            echo "Order Number Not Found";
+    }
+}
+?>
 
 </body>
 </html>

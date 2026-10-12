@@ -2,81 +2,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Inventory Stock Check</title>
+    <title>Electronics Shop Inventory</title>
 </head>
 <body>
 
-    <h1>Inventory Stock Check System</h1>
+<h2>Electronics Shop Stock Check</h2>
 
-    <form method="post">
+<form method="post">
+    Enter stock quantities:
 
-        <h3>Enter Product Quantities</h3>
+    <p>Smartphones:
+        <input type="number" name="q1" min="0" required>
+    </p>
 
-        <label>Product 1:</label>
-        <input type="number" name="qty1" min="0" step="1" required>
-        <br><br>
+    <p>Laptops:
+        <input type="number" name="q2" min="0" required>
+    </p>
 
-        <label>Product 2:</label>
-        <input type="number" name="qty2" min="0" step="1" required>
-        <br><br>
+    <p>Headphones:
+        <input type="number" name="q3" min="0" required>
+    </p>
 
-        <label>Product 3:</label>
-        <input type="number" name="qty3" min="0" step="1" required>
-        <br><br>
+    <p>Chargers:
+        <input type="number" name="q4" min="0" required>
+    </p>
 
-        <label>Product 4:</label>
-        <input type="number" name="qty4" min="0" step="1" required>
-        <br><br>
+    <p>Televisions:
+        <input type="number" name="q5" min="0" required>
+    </p>
 
-        <label>Product 5:</label>
-        <input type="number" name="qty5" min="0" step="1" required>
-        <br><br>
+    <button type="submit" name="check">Check Stock</button>
+</form>
 
-        <button type="submit" name="check">
-            Check Stock
-        </button>
+<?php
+if (isset($_POST["check"])) {
 
-    </form>
+    $products = array(
+        "Smartphones",
+        "Laptops",
+        "Headphones",
+        "Chargers",
+        "Televisions"
+    );
 
-    <?php if (isset($_POST['check'])) {
-      // Store product quantities in an array
-      $inventory = [
-        $_POST['qty1'],
-        $_POST['qty2'],
-        $_POST['qty3'],
-        $_POST['qty4'],
-        $_POST['qty5'],
-      ];
+    $stock = array(
+        $_POST["q1"],
+        $_POST["q2"],
+        $_POST["q3"],
+        $_POST["q4"],
+        $_POST["q5"]
+    );
 
-      // Count products out of stock
-      $outOfStock = 0;
+    for ($i = 0; $i < 5; $i++) {
 
-      echo '<h2>Stock Report</h2>';
-
-      // Check each product
-      for ($i = 0; $i < 5; $i++) {
-        if ($inventory[$i] == 0) {
-          echo 'Product ' . ($i + 1);
-          echo ' is OUT OF STOCK<br>';
-
-          $outOfStock++;
+        if ($stock[$i] == 0) {
+            echo $products[$i] . ": OUT OF STOCK<br>";
         } else {
-          echo 'Product ' . ($i + 1);
-          echo ' is IN STOCK';
-          echo ' (Quantity: ' . $inventory[$i] . ')<br>';
+            echo $products[$i] . ": " . $stock[$i] . " available<br>";
         }
-      }
-
-      // Display the summary
-      echo '<h3>Inventory Summary</h3>';
-
-      echo 'Total products: 5<br>';
-
-      echo 'Out of stock: ' . $outOfStock . '<br>';
-
-      echo 'In stock: ' . (5 - $outOfStock);
-    } ?>
+    }
+}
+?>
 
 </body>
 </html>
-
